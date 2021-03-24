@@ -1,0 +1,15 @@
+{% if linklists[block.settings.menu].links.size > 0 %}
+  {% if block.settings.show_footer_title %}
+    <p class="h4 footer__title">
+      {{ linklists[block.settings.menu].title }}
+    </p>
+  {% endif %}
+    <ul class="no-bullets site-footer__linklist">
+      {% if block.settings.show_custom_link %}
+        <li><a onclick="Smooch.open();">Chat With Us!</a></li>
+      {% endif %}
+      {% for link in linklists[block.settings.menu].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,23 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+{{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+{{ 'custom.theme.scss.css' | asset_url | stylesheet_tag }}
+{{ 'menu.scss.css' | asset_url | stylesheet_tag }}
+{{ 'collection.scss.css' | asset_url | stylesheet_tag }}
+{{ 'nextopia-collection.scss.css' | asset_url | stylesheet_tag }}
+{{ 'quickview.scss.css' | asset_url | stylesheet_tag }}
+{{ 'account.scss.css' | asset_url | stylesheet_tag }}
+{{ 'toolbar.scss.css' | asset_url | stylesheet_tag }}
+
+
+{% if template contains 'product' %}
+    {{ 'product.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{% if template contains 'cart' %}
+    {{ 'cart.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{% if template contains 'blog' %}
+    {{ 'blog.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{% if template contains 'article' %}
+    {{ 'article.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
