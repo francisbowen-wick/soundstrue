@@ -4,6 +4,7 @@
 	http://rechargepayments.com: v3.2.6
 	Updated: 2020/03/13
 -->
+
 {% comment %}Subscriptions Powered by ReCharge Payments: Meta Fields{% endcomment %}
 {% assign has_subscriptions = false %}
 {% for i in cart.items %}
@@ -370,10 +371,12 @@
 		var reChargeCartJS = function() {
 			var submit_buttons = getSubmitButtons();
 			submit_buttons.forEach(function(button) {
-				button.addEventListener('click', function(evt) {
+                $(button).off();
+				$(button).on('click', function(evt) {
 					var disable_recharge = evt.target.getAttribute('data-disable-recharge');
 					if (ReCharge.cart_options && !ReCharge.cart_options.disable && (!disable_recharge || disable_recharge !== 'true')) {
 						evt.preventDefault();
+                      	evt.stopPropagation();
 						cartSubmit(ReCharge.cart_options, ReCharge.customer);
 					} else {
 						window.console.log('ReCharge was disabled intentionally.');
@@ -392,7 +395,18 @@
 			}
 		} else {
 			try {
-				document.addEventListener('DOMContentLoaded', reChargeCartJS);
+				document.addEventListener('DOMContentLoaded', function(event) {
+                  // setTimeout(reChargeCartJS, 400);
+                  // Something is making the button disappear so we'll force run our code some times to make sure everything works as expected.
+                  var counter = 3;
+                  var intervalId = setInterval(function() {
+                    counter--;
+                    reChargeCartJS();
+                    if (counter === 0) {
+                      clearInterval(intervalId);
+                    }
+                  }, 333);
+                });
 			} catch(e) {
 				window.console.log(e);
 				restoreCheckoutButton();
